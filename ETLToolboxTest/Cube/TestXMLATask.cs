@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ALE.ETLTools;
+using ALE.ETLToolbox;
 
-namespace ALE.ETLToolsTest {
+namespace ALE.ETLToolboxTest {
     [TestClass]
     public class TestXMLATask {
         public TestContext TestContext { get; set; }

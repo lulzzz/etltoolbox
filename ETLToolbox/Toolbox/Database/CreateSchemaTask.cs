@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace ALE.ETLTools {
+namespace ALE.ETLToolbox {
     public class CreateSchemaTask : GenericTask, ITask {
         /* ITask Interface */
         public override string TaskType { get; set; } = "CREATESCHEMA";

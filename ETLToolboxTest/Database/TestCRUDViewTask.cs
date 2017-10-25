@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ALE.ETLTools;
+using ALE.ETLToolbox;
 using System.Collections.Generic;
 
-namespace ALE.ETLToolsTest {
+namespace ALE.ETLToolboxTest {
     [TestClass]
     public class TestCRUDViewTask {
         public TestContext TestContext { get; set; }

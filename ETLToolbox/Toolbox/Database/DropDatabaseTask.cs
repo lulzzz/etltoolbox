@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ALE.ETLTools
+namespace ALE.ETLToolbox
 {
     public class DropDatabaseTask : GenericTask, ITask
     {

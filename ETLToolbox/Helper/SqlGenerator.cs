@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ALE.ETLTools {
+namespace ALE.ETLToolbox {
     public class SqlGenerator {
         public static string Headline1(string headline) {
             return string.Format(@"

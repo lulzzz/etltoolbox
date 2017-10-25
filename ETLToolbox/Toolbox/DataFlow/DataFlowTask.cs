@@ -1,4 +1,4 @@
-﻿using ALE.ETLTools;
+﻿using ALE.ETLToolbox;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 
-namespace ALE.ETLTools
+namespace ALE.ETLToolbox
 {
     public class DataFlowTask : GenericTask, ITask 
     {

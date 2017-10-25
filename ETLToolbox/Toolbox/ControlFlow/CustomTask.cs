@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ALE.ETLTools {
+namespace ALE.ETLToolbox {
     public class CustomTask : GenericTask, ITask {
         #region
         public override string TaskType { get; set; } = "CUSTOM";

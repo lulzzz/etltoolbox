@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace ALE.ETLTools {
+namespace ALE.ETLToolbox {
     public class ExtensionFile {
         public const string VERSIONMATCH = @"--\W*@version\W*:\W*[><=]?\d+.\d+.\d+";
         public const string SKIPNEXT = @"--\W*@skipnext\W*:\W*[Tt]rue";

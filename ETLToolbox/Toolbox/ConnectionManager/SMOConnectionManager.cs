@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace ALE.ETLTools {
-    public class SMOConnectionManager : IConnectionManager, IDisposable {
-        public ConnectionString ConnectionString => SqlConnectionManager.ConnectionString;
+namespace ALE.ETLToolbox {
+    public class SMOConnectionManager : IDbConnectionManager, IDisposable {
+        public ConnectionString ConnectionString { get; set; }
         public bool IsConnectionOpen => SqlConnectionManager.DbConnection?.State == ConnectionState.Open;
 
         public SMOConnectionManager(ConnectionString connectionString) {
             RuntimePolicyHelper.SetNET20Compatibilty();
+            ConnectionString = connectionString;
             SqlConnectionManager = new SqlConnectionManager(connectionString);
         }
 
@@ -27,6 +28,7 @@ namespace ALE.ETLTools {
         }
 
         public void Open() {
+            SqlConnectionManager = new SqlConnectionManager(ConnectionString);
             SqlConnectionManager.Open();
             Server = new Server(new ServerConnection(SqlConnectionManager.DbConnection));
             Context.StatementTimeout = 0;

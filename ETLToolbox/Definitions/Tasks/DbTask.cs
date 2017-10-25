@@ -6,12 +6,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ALE.ETLTools {
-    public abstract class DbTask : GenericTask, ITask {
-        /* ITask Interface */
-        //public new string TaskType { get; set; } = "SQL";
-        //public new string TaskName { get; set; } = "Run some sql";
-        //public new void Execute() => ExecuteNonQuery();
+namespace ALE.ETLToolbox {
+    public abstract class DbTask : GenericTask {
 
         /* Public Properties */
         public string Sql { get; set; }
@@ -90,7 +86,6 @@ namespace ALE.ETLTools {
                 RowsAffected = DoSkipSql ? 0 : DbConnectionManager.ExecuteNonQuery(Command);
                 QueryFinish(LogType.Rows);
             }
-            //DbConnectionManager.Close();
             return RowsAffected ?? 0;
         }
 
@@ -102,7 +97,6 @@ namespace ALE.ETLTools {
                 result = DbConnectionManager.ExecuteScalar(Command);
                 QueryFinish();
             }
-            //DbConnectionManager.Close();
             return result;
         }
 
@@ -113,6 +107,7 @@ namespace ALE.ETLTools {
             else
                 return ((T)result);
         }
+
 
         public bool ExecuteScalarAsBool() {
             int? result = ExecuteScalar<int>();
@@ -143,7 +138,6 @@ namespace ALE.ETLTools {
                 reader.Close();
                 QueryFinish();
             }
-            //DbConnectionManager.Close();
         }
 
 
@@ -155,7 +149,6 @@ namespace ALE.ETLTools {
                 RowsAffected = data.RecordsAffected;
                 QueryFinish(LogType.Bulk);
             }
-            //DbConnectionManager.Close();
         }
 
 

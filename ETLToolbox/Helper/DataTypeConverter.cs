@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace ALE.ETLTools {
+namespace ALE.ETLToolbox {
     public class DataTypeConverter {
         public const int DefaultTinyIntegerLength = 5;
         public const int DefaultSmallIntegerLength = 7;

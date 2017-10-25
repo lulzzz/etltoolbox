@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 //using Microsoft.AnalysisServices.Tabular;
 //using Microsoft.AnalysisServices.Xmla;
 
-namespace ALE.ETLTools {
+namespace ALE.ETLToolbox {
     public static class RuntimePolicyHelper {
         public static bool LegacyV2RuntimeEnabledSuccessfully { get; private set; }
 

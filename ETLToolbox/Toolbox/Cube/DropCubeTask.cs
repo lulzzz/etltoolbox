@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using System.IO;
 
-namespace ALE.ETLTools {
+namespace ALE.ETLToolbox {
     public class DropCubeTask : GenericTask, ITask {
         public override string TaskType { get; set; } = "DROPCUBE";
         public override string TaskName => $"Drops cube {ASConnectionManager.ConnectionString.CatalogName}";

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ALE.ETLTools {
+namespace ALE.ETLToolbox {
     public class CreateLogTablesTask : GenericTask, ITask {
         /* ITask Interface */
         public override string TaskType { get; set; } = "CREATELOG";

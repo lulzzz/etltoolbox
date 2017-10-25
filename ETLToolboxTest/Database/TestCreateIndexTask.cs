@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ALE.ETLTools;
+using ALE.ETLToolbox;
 using System.Collections.Generic;
 
-namespace ALE.ETLToolsTest {
+namespace ALE.ETLToolboxTest {
     [TestClass]
     public class TestCreateIndexTask {
         public TestContext TestContext { get; set; }
@@ -23,6 +23,14 @@ namespace ALE.ETLToolsTest {
         public void TestCreateIndex() {
             string indexName = "ix_" + TestHelper.RandomString(5);
             CreateIndexTask.Create(indexName, "test.Table1",new List<string>() { "key1", "key2" } );
+            Assert.IsTrue(SqlTask.ExecuteScalarAsBool("Check if index exists", $"select count(*) from sys.indexes where name = '{indexName}'"));
+        }
+
+        [TestMethod]
+        public void TestReCreateIndex() {
+            string indexName = "ix_" + TestHelper.RandomString(5);
+            CreateIndexTask.Create(indexName, "test.Table1", new List<string>() { "key1", "key2" });
+            CreateIndexTask.Create(indexName, "test.Table1", new List<string>() { "key1", "key2" });
             Assert.IsTrue(SqlTask.ExecuteScalarAsBool("Check if index exists", $"select count(*) from sys.indexes where name = '{indexName}'"));
         }
 

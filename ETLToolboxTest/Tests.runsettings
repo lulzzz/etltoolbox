@@ -7,7 +7,7 @@
   </RunConfiguration>
 
   <TestRunParameters>
-    <Parameter name="connectionString" value="Data Source=.;Integrated Security=SSPI;Initial Catalog=ALETest;" />
-    <Parameter name="dbName" value="ALETest" />    
+    <Parameter name="connectionString" value="Data Source=.;Integrated Security=SSPI;Initial Catalog=ETLToolbox;" />
+    <Parameter name="dbName" value="ETLToolbox" />    
   </TestRunParameters>
 </RunSettings>

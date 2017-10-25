@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ALE.ETLTools {
+namespace ALE.ETLToolbox {
     public class AdomdConnectionManager : DbConnectionManager<AdomdConnection, AdomdCommand> { 
 
         public AdomdConnectionManager() : base() { }

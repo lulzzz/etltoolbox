@@ -6,8 +6,8 @@
     <ProjectGuid>{E18C5029-9FA4-4846-828C-1B42D5D18C3C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ALE.ETLToolsTest</RootNamespace>
-    <AssemblyName>ETLToolsTest</AssemblyName>
+    <RootNamespace>ALE.ETLToolboxTest</RootNamespace>
+    <AssemblyName>ETLToolboxTest</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -59,6 +59,7 @@
     <Compile Include="Cube\TestXMLATask.cs" />
     <Compile Include="ControlFlow\TestCustomTask.cs" />
     <Compile Include="Database\TestCreateIndexTask.cs" />
+    <Compile Include="Database\TestCalculateDatabaseHashTask.cs" />
     <Compile Include="Logging\TestLogging.cs" />
     <Compile Include="DataFlow\TestDataFlowTask.cs" />
     <Compile Include="Database\TestCreateTableTask.cs" />
@@ -84,7 +85,7 @@
     <None Include="DataFlow\InputData.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Test.runsettings" />
+    <None Include="Tests.runsettings" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

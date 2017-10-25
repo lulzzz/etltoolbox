@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ALE.ETLTools {
+namespace ALE.ETLToolbox {
     public class Sequence : GenericTask, ITask
     {
         public override string TaskType { get; set; } = "SEQUENCE";

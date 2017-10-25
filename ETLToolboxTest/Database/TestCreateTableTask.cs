@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ALE.ETLTools;
+using ALE.ETLToolbox;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ALE.ETLToolsTest {
+namespace ALE.ETLToolboxTest {
     [TestClass]
     public class TestCreateTableTask {
         public TestContext TestContext { get; set; }
@@ -21,6 +21,15 @@ namespace ALE.ETLToolsTest {
         [TestMethod]
         public void TestCreateTable() {
             List<TableColumn> columns = new List<TableColumn>() { new TableColumn("value", "int") };
+            CreateTableTask.Create("test.Table1", columns);
+            Assert.IsTrue(SqlTask.ExecuteScalarAsBool("Check if table exists", $"select count(*) from sys.objects where type = 'U' and object_id = object_id('test.Table1')"));
+
+        }
+
+        [TestMethod]
+        public void TestReCreateTable() {
+            List<TableColumn> columns = new List<TableColumn>() { new TableColumn("value", "int") };
+            CreateTableTask.Create("test.Table1", columns);
             CreateTableTask.Create("test.Table1", columns);
             Assert.IsTrue(SqlTask.ExecuteScalarAsBool("Check if table exists", $"select count(*) from sys.objects where type = 'U' and object_id = object_id('test.Table1')"));
 

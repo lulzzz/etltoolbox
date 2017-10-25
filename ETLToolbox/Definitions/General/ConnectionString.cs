@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace ALE.ETLTools {
+namespace ALE.ETLToolbox {
     public class ConnectionString {
         static string PATTERNBEGIN = $@"(.*)(";
         static string PATTERNEND = $@"\s*=\s*)(.*?)(;|$)(.*)";

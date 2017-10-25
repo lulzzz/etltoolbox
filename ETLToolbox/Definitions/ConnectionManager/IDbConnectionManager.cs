@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace ALE.ETLTools {
+namespace ALE.ETLToolbox {
     public interface IDbConnectionManager : IConnectionManager  {      
         int ExecuteNonQuery(string command);
         object ExecuteScalar(string command);

@@ -7,8 +7,8 @@
     <ProjectGuid>{0C7548BA-A597-488A-8ADD-2F628BE691D6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ALE.ETLTools</RootNamespace>
-    <AssemblyName>ETLTools</AssemblyName>
+    <RootNamespace>ALE.ETLToolbox</RootNamespace>
+    <AssemblyName>ETLToolbox</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -93,8 +93,10 @@
     <Compile Include="Definitions\Database\TableColumn.cs" />
     <Compile Include="Toolbox\Database\CleanUpSchemaTask.cs" />
     <Compile Include="Toolbox\Database\CreateIndexTask.cs" />
+    <Compile Include="Toolbox\Database\CalculateDatabaseHashTask.cs" />
     <Compile Include="Toolbox\Database\CreateTableTask.cs" />
     <Compile Include="Toolbox\Database\CRUDViewTask.cs" />
+    <Compile Include="Toolbox\Database\RestoreDatabaseTask.cs" />
     <Compile Include="Toolbox\Database\DropDatabaseTask.cs" />
     <Compile Include="Toolbox\Database\CreateDatabaseTask.cs" />
     <Compile Include="Toolbox\Database\AddFileGroupTask.cs" />

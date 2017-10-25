@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace ALE.ETLTools {
+namespace ALE.ETLToolbox {
     public class FileConnectionManager {
         internal string FileName { get; set; }
 

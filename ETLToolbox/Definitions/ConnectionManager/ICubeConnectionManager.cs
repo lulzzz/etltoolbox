@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace ALE.ETLTools {
+namespace ALE.ETLToolbox {
     public interface ICubeConnectionManager : IConnectionManager {
         void Process();
         void DropIfExists();

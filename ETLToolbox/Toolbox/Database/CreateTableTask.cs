@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace ALE.ETLTools {
+namespace ALE.ETLToolbox {
     public class CreateTableTask : GenericTask, ITask {
         /* ITask Interface */
         public override string TaskType { get; set; } = "CREATETABLE";
@@ -16,9 +16,10 @@ namespace ALE.ETLTools {
 
         public bool OnlyNVarCharColumns { get; set; }
         public string Sql => $@"
-create table {TableName} (
- {ColumnsDefinitionSql}
-)
+if object_id('{TableName}', 'U') is null
+  create table {TableName} (
+  {ColumnsDefinitionSql}
+  )
 ";
 
         public CreateTableTask() {
@@ -32,7 +33,7 @@ create table {TableName} (
         public static void Create(string tableName, IList<ITableColumn> columns) => new CreateTableTask(tableName, columns).Execute();
         public static void Create(string tableName, List<TableColumn> columns) => new CreateTableTask(tableName, columns.Cast<ITableColumn>().ToList()).Execute();
 
-        string ColumnsDefinitionSql => String.Join(", " + Environment.NewLine, Columns?.Select(col => CreateTableDefinition(col)));
+        string ColumnsDefinitionSql => String.Join("  , " + Environment.NewLine, Columns?.Select(col => CreateTableDefinition(col)));
 
         string CreateTableDefinition(ITableColumn col) {
 

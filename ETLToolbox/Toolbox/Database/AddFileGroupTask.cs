@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ALE.ETLTools {
+namespace ALE.ETLToolbox {
     public class AddFileGroupTask : GenericTask, ITask {
         /* ITask Interface */
         public override string TaskType { get; set; } = "CREATEFG";

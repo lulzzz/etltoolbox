@@ -1,4 +1,4 @@
-﻿using ALE.ETLTools;
+﻿using ALE.ETLToolbox;
 using CsvHelper;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 
-namespace ALE.ETLTools {
+namespace ALE.ETLToolbox {
     public class CSVSource : IDisposable {
 
         public CsvReader CsvReader { get; set; }

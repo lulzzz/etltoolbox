@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ALE.ETLTools {
+namespace ALE.ETLToolbox {
     public class CreateIndexTask: GenericTask, ITask {
         /* ITask Interface */
         public override string TaskType { get; set; } = "CREATEINDEX";
@@ -15,10 +15,13 @@ namespace ALE.ETLTools {
         public IList<string> IncludeColumns { get; set; }
         public bool IsUnique { get; set; }
         public bool IsClustered { get; set; }
-        public string Sql => $@"create {UniqueSql} {ClusteredSql} index {IndexName} on {TableName}
-( {String.Join(",", IndexColumns)} )
-{IncludeSql}
-with(PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = ON, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)";
+        public string Sql => $@"
+if not exists (select *  from sys.indexes  where name='{IndexName}' and object_id = object_id('{TableName}'))
+  create {UniqueSql} {ClusteredSql} index {IndexName} on {TableName}
+  ( {String.Join(",", IndexColumns)} )
+  {IncludeSql}
+  with(PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = ON, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+";
 
         public CreateIndexTask() {
 
@@ -38,7 +41,7 @@ with(PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = ON, DROP_EX
 
         string UniqueSql => IsUnique ? "unique" : string.Empty;
         string ClusteredSql => IsClustered ? "clustered" : "nonclustered";
-        string IncludeSql => IncludeColumns?.Count > 0 ? $"include ({String.Join(",", IncludeColumns)})" : string.Empty;
+        string IncludeSql => IncludeColumns?.Count > 0 ? $"include ({String.Join("  ,", IncludeColumns)})" : string.Empty;
 
     }
 }

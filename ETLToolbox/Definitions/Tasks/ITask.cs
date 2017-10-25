@@ -1,7 +1,7 @@
 ﻿
 using System;
 
-namespace ALE.ETLTools
+namespace ALE.ETLToolbox
 {
     public interface ITask
     {
