@@ -8,9 +8,13 @@ using System.Threading.Tasks;
 
 namespace ALE.ETLToolbox {
     public class ExtensionFile {
-        public const string VERSIONMATCH = @"--\W*@version\W*:\W*[><=]?\d+.\d+.\d+";
+        public const string VERSIONMATCH = @"--\W*@version\W*:\W*[><=]?(\d+.\d+)\W*([VFvf][Pp]\d+)?";
         public const string SKIPNEXT = @"--\W*@skipnext\W*:\W*[Tt]rue";
-        public const string FILENAMEMATCH = @"^(\w*?)_(\w*).sql";
+        public const string FILENAMEMATCH = @"^(\w*?)_([0-9A-Za-z!%&()=+#~äöüÄÖÜß -]*).sql";
+
+        //TODO read the version from somewhere else!
+        public string InstalledVersion => "2.2 VP1";
+
         public string Type { get; private set; }
         public string Name { get; private set; }
 
@@ -24,7 +28,7 @@ namespace ALE.ETLToolbox {
         public bool HasSkipNextStatement { get; private set; }
 
         public ExtensionFile(string filename) {
-            this.FileName = filename;
+            this.FileName = filename;            
 
             FillNameAndType();
             ReadContent();
@@ -33,14 +37,15 @@ namespace ALE.ETLToolbox {
             CheckIfHasSkipNext();
         }
 
+
+
         private void FillNameAndType() {
             string fileName = FileName.Substring(FileName.LastIndexOf(@"\") + 1);
             Match m = Regex.Match(fileName, FILENAMEMATCH);
             if (m.Success) {
                 Type = m.Groups[1].Value;
                 Name = m.Groups[2].Value;
-            }
-            else {
+            } else {
                 IsValidExtension = false;
             }
         }
@@ -51,10 +56,16 @@ namespace ALE.ETLToolbox {
 
         public void CheckIfHasValidVersion() {
             if (!Regex.IsMatch(Content, VERSIONMATCH)) IsValidExtension = false;
+            else {
+                var match = Regex.Match(Content, VERSIONMATCH);
+                if (!match.Captures[0].Value.ToLower().Contains(InstalledVersion.ToLower()))
+                    IsValidExtension = false;
+            }
+
         }
         public void CheckIfHasSkipNext() {
             HasSkipNextStatement = Regex.IsMatch(Content, SKIPNEXT) ? true : false;
         }
-    }
 
+    }
 }

@@ -32,5 +32,15 @@ where sch.name = '{schemaName}'");
             CleanUpSchemaTask.CleanUp(schemaName);
             Assert.AreEqual(0,objCountSql.ExecuteScalar<int>());
         }
+
+        [TestMethod]
+        public void TestCleanupETLLogTables() {            
+            CreateLogTablesTask.CreateLog();            
+            Assert.IsTrue(new SqlTask("Check etl.Log table", $"select count(*) from sys.tables where type = 'U' and name = 'Log' and schema_id('etl') = schema_id") { DisableLogging = true }.ExecuteScalarAsBool());
+            Assert.IsTrue(new SqlTask("Check etl.LoadProcess table", $"select count(*) from sys.tables where type = 'U' and name = 'LoadProcess' and schema_id('etl') = schema_id") { DisableLogging = true }.ExecuteScalarAsBool());
+            CleanUpSchemaTask.CleanUp("etl");
+            Assert.IsFalse(new SqlTask("Check etl.Log table", $"select count(*) from sys.tables where type = 'U' and name = 'Log' and schema_id('etl') = schema_id") { DisableLogging = true }.ExecuteScalarAsBool());
+            Assert.IsFalse(new SqlTask("Check etl.LoadProcess table", $"select count(*) from sys.tables where type = 'U' and name = 'LoadProcess' and schema_id('etl') = schema_id") { DisableLogging = true }.ExecuteScalarAsBool());
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace ALE.ETLToolbox {
-    public class SqlGenerator {
+    public class SqlHelper {
         public static string Headline1(string headline) {
             return string.Format(@"
 ------------------------------------------------------------
@@ -28,7 +28,7 @@ namespace ALE.ETLToolbox {
         public static string DropTablesIfExists(params string[] tableNames) {
             string sql = "";
             foreach (string name in tableNames) {
-                string tableName = name.StartsWith("#") ? "tempdb.." + name : name;
+                string tableName = name.StartsWith("#") ? "tempdb.." + name.Substring(1) : name;
                 sql += $@"if object_id('{tableName}') is not null drop table {tableName}" + Environment.NewLine;
             }
             return sql;

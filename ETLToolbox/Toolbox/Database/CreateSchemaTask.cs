@@ -12,7 +12,7 @@ namespace ALE.ETLToolbox {
         public string SchemaName { get; set; }
         public string Sql => $@"if not exists (select schema_name(schema_id) from sys.schemas where schema_name(schema_id) = '{SchemaName}')
 begin
-	exec sp_executesql N'create schema {SchemaName}'
+	exec sp_executesql N'create schema [{SchemaName}]'
 end";
 
         public CreateSchemaTask() {

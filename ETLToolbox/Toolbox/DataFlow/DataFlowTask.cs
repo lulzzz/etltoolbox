@@ -54,9 +54,10 @@ namespace ALE.ETLToolbox
         {
             SourceBufferBlock = new BufferBlock<string[]>();
             DestinationBatchBlock = new BatchBlock<string[]>(BatchSize);
-            using (Source = new CSVSource(FileName)) {
+            if (Source == null) Source = new CSVSource(FileName);
+            using (Source) {
                 Source.Open();
-                Destination = new DBDestination() { Connection = ConnectionManager, TableName = TableName };
+                Destination = new DBDestination() { Connection = DbConnectionManager, TableName = TableName };
 
                 NLogger.Info(TaskName, TaskType, "START", TaskHash, ControlFlow.STAGE, ControlFlow.CurrentLoadProcess?.LoadProcessKey);
                 /* Pipeline:

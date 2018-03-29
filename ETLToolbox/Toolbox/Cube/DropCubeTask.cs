@@ -12,9 +12,9 @@ namespace ALE.ETLToolbox {
         public override string TaskName => $"Drops cube {ASConnectionManager.ConnectionString.CatalogName}";
         public override void Execute() {
             NLogger.Info(TaskName, TaskType, "START", TaskHash, ControlFlow.STAGE, ControlFlow.CurrentLoadProcess?.LoadProcessKey);
-            using (ASConnectionManager) {
-                ASConnectionManager.Open();
-                ASConnectionManager.DropIfExists();
+            using (var conn = ASConnectionManager.Clone()) {
+                conn.Open();
+                conn.DropIfExists();
             }
             NLogger.Info(TaskName, TaskType, "END", TaskHash, ControlFlow.STAGE, ControlFlow.CurrentLoadProcess?.LoadProcessKey);
         }

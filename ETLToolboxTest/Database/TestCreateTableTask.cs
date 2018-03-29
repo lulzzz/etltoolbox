@@ -52,6 +52,7 @@ namespace ALE.ETLToolboxTest {
             CreateTableTask.Create("test.Table3", columns);
             Assert.AreEqual(2,SqlTask.ExecuteScalar<int>("Check if column exists", $"select count(*) from sys.columns where object_id = object_id('test.Table3')"));
             Assert.IsTrue(SqlTask.ExecuteScalarAsBool("Check if primary key exists", $"select count(*) from sys.key_constraints where parent_object_id = object_id('test.Table3')"));
+            Assert.AreEqual("pk_Table3_Key", SqlTask.ExecuteScalar("Check if primary key has correct naming", "select name from sys.key_constraints where parent_object_id = object_id('test.Table3')"));
             Assert.IsTrue(SqlTask.ExecuteScalarAsBool("Check if column is nullable", $"select case when is_nullable = 1 then 1 else 0 end from sys.columns where object_id = object_id('test.Table3') and name='value2'"));
 
         }

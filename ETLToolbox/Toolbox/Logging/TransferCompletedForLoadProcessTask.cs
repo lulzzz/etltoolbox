@@ -4,18 +4,28 @@
 namespace ALE.ETLToolbox {
     public class TransferCompletedForLoadProcessTask : GenericTask, ITask {
         /* ITask Interface */
-        public override string TaskType { get; set; } = "LOADPROCESS_END";
-        public override string TaskName => $"End process with key {LoadProcessKey}";
+        public override string TaskType { get; set; } = "TRANSFERCOMPLETE";
+        public override string TaskName => $"Set transfer completed for {LoadProcessKey}";
         public override void Execute() {
-            new SqlTask(this, Sql).ExecuteNonQuery();
-            ReadLoadProcessTask.Read(LoadProcessKey ?? ControlFlow.CurrentLoadProcess.LoadProcessKey);
+            new SqlTask(this, Sql).ExecuteNonQuery();            
+            var rlp = new ReadLoadProcessTableTask(LoadProcessKey) { TaskType = this.TaskType, TaskHash = this.TaskHash, DisableLogging = true };
+            rlp.Execute();
+            ControlFlow.CurrentLoadProcess = rlp.LoadProcess;
         }
 
-        /* Public properties */        
-        public int? LoadProcessKey { get; set; } 
+        /* Public properties */
+        public int? _loadProcessKey;
+        public int? LoadProcessKey {
+            get {
+                return _loadProcessKey ?? ControlFlow.CurrentLoadProcess?.LoadProcessKey;
+            }
+            set {
+                _loadProcessKey = value;
+            }
+        }
 
         public string Sql => $@"EXECUTE etl.TransferCompletedForLoadProcess
-	 @LoadProcessKey = '{LoadProcessKey ?? ControlFlow.CurrentLoadProcess.LoadProcessKey}'";
+	 @LoadProcessKey = '{LoadProcessKey}'";
 
         public TransferCompletedForLoadProcessTask() {
 

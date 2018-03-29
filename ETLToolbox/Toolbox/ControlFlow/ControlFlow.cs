@@ -37,6 +37,14 @@ namespace ALE.ETLToolbox {
             if (dbTarget != null)
                 dbTarget.ConnectionString = connection.ConnectionString.Value; //?? CurrentDbConnection.ConnectionString.Value; //""; Parameter.DWHConnection?.Value;
         }
-    
+
+        public static void ClearSettings() {
+            CurrentDbConnection = null;
+            CurrentAdomdConnection = null;
+            CurrentASConnection = null;
+            CurrentLoadProcess = null;
+            DisableAllLogging = false;
+        }
+
     }
 }

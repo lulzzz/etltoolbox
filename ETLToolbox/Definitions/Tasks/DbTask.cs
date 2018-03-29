@@ -80,10 +80,10 @@ namespace ALE.ETLToolbox {
 
         /* Public methods */
         public int ExecuteNonQuery() {
-            using (DbConnectionManager) {
-                DbConnectionManager.Open();
+            using (var conn= DbConnectionManager.Clone()) {
+                conn.Open();
                 QueryStart();
-                RowsAffected = DoSkipSql ? 0 : DbConnectionManager.ExecuteNonQuery(Command);
+                RowsAffected = DoSkipSql ? 0 : conn.ExecuteNonQuery(Command);//DbConnectionManager.ExecuteNonQuery(Command);
                 QueryFinish(LogType.Rows);
             }
             return RowsAffected ?? 0;
@@ -91,10 +91,10 @@ namespace ALE.ETLToolbox {
 
         public object ExecuteScalar() {
             object result = null;
-            using (DbConnectionManager) {
-                DbConnectionManager.Open();
+            using (var conn = DbConnectionManager.Clone()) {
+                conn.Open();
                 QueryStart();
-                result = DbConnectionManager.ExecuteScalar(Command);
+                result = conn.ExecuteScalar(Command);
                 QueryFinish();
             }
             return result;
@@ -115,11 +115,11 @@ namespace ALE.ETLToolbox {
         }
 
         public void ExecuteReader() {
-            using (DbConnectionManager) {
-                DbConnectionManager.Open();
+            using (var conn = DbConnectionManager.Clone()) {
+                conn.Open();
                 QueryStart();
                 //SqlDataReader reader = ConnectionManager.ExecuteReader(Command) as SqlDataReader;
-                IDataReader reader = DbConnectionManager.ExecuteReader(Command) as IDataReader;
+                IDataReader reader = conn.ExecuteReader(Command) as IDataReader;
                 for (int row = 0; row < ReadTopX; row++) {
                     if (reader.Read()) {
                         BeforeRowReadAction?.Invoke();
@@ -142,10 +142,10 @@ namespace ALE.ETLToolbox {
 
 
         public void BulkInsert(IDataReader data, IColumnMappingCollection columnMapping, string tableName) {
-            using (DbConnectionManager) {
-                DbConnectionManager.Open();
+            using (var conn = DbConnectionManager.Clone()) {
+                conn.Open();
                 QueryStart(LogType.Bulk);
-                DbConnectionManager.BulkInsert(data, columnMapping, tableName);
+                conn.BulkInsert(data, columnMapping, tableName);
                 RowsAffected = data.RecordsAffected;
                 QueryFinish(LogType.Bulk);
             }

@@ -22,7 +22,13 @@ namespace ALE.ETLToolbox {
             }
         }
 
-    
+        public override IDbConnectionManager Clone() {
+            SqlConnectionManager clone = new SqlConnectionManager(ConnectionString) {
+                MaxLoginAttempts = this.MaxLoginAttempts
+            };
+            return clone;
+        }
+
 
     }
 }

@@ -20,10 +20,10 @@ namespace ALE.ETLToolbox {
         public LogTask(string message) : this() {
             Message = message; 
         }
-
-        public void Info() => NLogger?.Info(Message, "LOG");
-        public void Warn() => NLogger?.Warn(Message, "LOG");
-        public void Error() => NLogger?.Error(Message, "LOG");
+        //NLogger.Info(TaskName, TaskType, "START", TaskHash, ControlFlow.STAGE, ControlFlow.CurrentLoadProcess?.LoadProcessKey);
+        public void Info() => NLogger?.Info(Message, TaskType, "LOG", TaskHash, ControlFlow.STAGE, ControlFlow.CurrentLoadProcess?.LoadProcessKey);
+        public void Warn() => NLogger?.Warn(Message, TaskType, "LOG", TaskHash, ControlFlow.STAGE, ControlFlow.CurrentLoadProcess?.LoadProcessKey);
+        public void Error() => NLogger?.Error(Message, TaskType, "LOG", TaskHash, ControlFlow.STAGE, ControlFlow.CurrentLoadProcess?.LoadProcessKey);
         public static void Info(string message) => new LogTask(message).Info();
         public static void Warn(string message) => new LogTask(message).Warn();
         public static void Error(string message) => new LogTask(message).Error();

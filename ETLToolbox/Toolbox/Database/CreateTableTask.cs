@@ -12,6 +12,7 @@ namespace ALE.ETLToolbox {
 
         /* Public properties */
         public string TableName { get; set; }
+        public string TableWithoutSchema => TableName.IndexOf('.') > 0 ? TableName.Substring(TableName.LastIndexOf('.') + 1) : TableName;
         public IList<ITableColumn> Columns { get; set; }
 
         public bool OnlyNVarCharColumns { get; set; }
@@ -45,10 +46,10 @@ if object_id('{TableName}', 'U') is null
             string nullSql = string.Empty;
             if (String.IsNullOrWhiteSpace(col.ComputedColumn))
                 nullSql = col.AllowNulls ? "NULL" : "NOT NULL";            
-            string primarySql = col.IsPrimaryKey ? $"constraint [pk_{TableName}_{col.Name}] primary key clustered ( [{col.Name}] asc )" : string.Empty;
+            string primarySql = col.IsPrimaryKey ? $"constraint [pk_{TableWithoutSchema}_{col.Name}] primary key clustered ( [{col.Name}] asc )" : string.Empty;
             string defaultSql = string.Empty;
             if (!col.IsPrimaryKey)            
-                defaultSql = !String.IsNullOrWhiteSpace(col.DefaultValue) ? DefaultConstraintName(col.DefaultConstraintName) +  $" default {SetQuotesIfString(col.DefaultValue)}" : string.Empty;                        
+                defaultSql = col.DefaultValue != null ? DefaultConstraintName(col.DefaultConstraintName) +  $" default {SetQuotesIfString(col.DefaultValue)}" : string.Empty;                        
             string computedColumnSql = !String.IsNullOrWhiteSpace(col.ComputedColumn) ? $"as {col.ComputedColumn}" : string.Empty;
             return $@"[{col.Name}] {dataType} {identitySql} {collationSql} {nullSql} {primarySql} {defaultSql} {computedColumnSql}";
         }

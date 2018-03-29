@@ -66,6 +66,11 @@ namespace ALE.ETLToolbox {
         public void Dispose() => Dispose(true);
         public void Close() => Dispose();
 
+        public IDbConnectionManager Clone() {
+            SMOConnectionManager clone = new SMOConnectionManager(ConnectionString) { };
+            return clone;
+        }
+
 
     }
 

@@ -26,8 +26,8 @@ namespace ALE.ETLToolbox
     $@"
 if (db_id('{DatabaseName}') is not null)
 begin
-  --Delete Database
-  use [master]
+    use [master]
+  --Delete Database  
   alter database [{DatabaseName}]
   set single_user with rollback immediate
   alter database [{DatabaseName}]

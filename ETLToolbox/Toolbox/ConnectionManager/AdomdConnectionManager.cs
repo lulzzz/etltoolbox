@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ALE.ETLToolbox {
-    public class AdomdConnectionManager : DbConnectionManager<AdomdConnection, AdomdCommand> { 
+    public class AdomdConnectionManager : DbConnectionManager<AdomdConnection, AdomdCommand> {
 
         public AdomdConnectionManager() : base() { }
 
@@ -15,6 +15,14 @@ namespace ALE.ETLToolbox {
 
         public override void BulkInsert(IDataReader data, IColumnMappingCollection columnMapping, string tableName) {
             throw new NotImplementedException();
+        }
+
+        public override IDbConnectionManager Clone() {
+            AdomdConnectionManager clone = new AdomdConnectionManager(ConnectionString) {
+                MaxLoginAttempts = this.MaxLoginAttempts
+            };
+            return clone;
+
         }
 
     }

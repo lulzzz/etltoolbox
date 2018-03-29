@@ -14,9 +14,9 @@ namespace ALE.ETLToolbox
         public override string TaskName => $"Process cube {ASConnectionManager.ConnectionString.CatalogName}";
         public override void Execute() {
             NLogger.Info(TaskName, TaskType, "START", TaskHash, ControlFlow.STAGE, ControlFlow.CurrentLoadProcess?.LoadProcessKey);
-            using (ASConnectionManager) {
-                ASConnectionManager.Open();
-                ASConnectionManager.Process();
+            using (var conn = ASConnectionManager.Clone()) {
+                conn.Open();
+                conn.Process();
             }
             NLogger.Info(TaskName, TaskType, "END", TaskHash, ControlFlow.STAGE, ControlFlow.CurrentLoadProcess?.LoadProcessKey);
         }       
@@ -31,7 +31,7 @@ namespace ALE.ETLToolbox
             this.TaskName = name;
         }              
 
-        public static void Execute(string name) => new ProcessCubeTask(name).Execute();
+        public static void Process(string name) => new ProcessCubeTask(name).Execute();
 
         NLog.Logger NLogger { get; set; }
     }

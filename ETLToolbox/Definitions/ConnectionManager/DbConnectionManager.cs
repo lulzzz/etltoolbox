@@ -33,8 +33,7 @@ namespace ALE.ETLToolbox {
                     try {
                         DbConnection.Open();
                         successfullyConnected = true;
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         successfullyConnected = false;
                         lastException = e;
                         Task.Delay(500 * i).Wait();
@@ -47,7 +46,7 @@ namespace ALE.ETLToolbox {
         }
 
         //public void CloseConnection() => Close();
-     
+
         public Command CreateCommand(string commandText) {
             var cmd = DbConnection.CreateCommand();
             cmd.CommandTimeout = 0;
@@ -62,8 +61,8 @@ namespace ALE.ETLToolbox {
 
         public object ExecuteScalar(string commandText) {
             Command cmd = CreateCommand(commandText);
-            return cmd.ExecuteScalar();            
-        }        
+            return cmd.ExecuteScalar();
+        }
 
         public IDataReader ExecuteReader(string commandText) {
             Command cmd = CreateCommand(commandText);
@@ -89,6 +88,8 @@ namespace ALE.ETLToolbox {
 
         public void Dispose() => Dispose(true);
         public void Close() => Dispose();
+
+        public abstract IDbConnectionManager Clone();
         #endregion
 
     }

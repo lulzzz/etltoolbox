@@ -111,8 +111,17 @@ namespace ALE.ETLToolbox {
 
         public void Dispose() => Dispose(true);
         public void Close() => Dispose();
-       
+
         #endregion
+
+        public ICubeConnectionManager Clone() {
+            ASConnectionManager clone = new ASConnectionManager(ConnectionString) {
+                DoParallelProcessing = this.DoParallelProcessing,
+                IgnoreErrors = this.IgnoreErrors
+            };
+            return clone;
+            
+        }
 
 
     }

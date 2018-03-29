@@ -9,5 +9,6 @@ namespace ALE.ETLToolbox {
         object ExecuteScalar(string command);
         IDataReader ExecuteReader(string command);
         void BulkInsert(IDataReader data, IColumnMappingCollection columnMapping, string tableName);
+        IDbConnectionManager Clone();
     }
 }

@@ -81,7 +81,7 @@ namespace ALE.ETLToolbox {
         internal virtual string NameAsComment => CommentStart + TaskName + CommentEnd + Environment.NewLine;
         private string CommentStart => DoXMLCommentStyle ? @"<!--" : "/*";
         private string CommentEnd => DoXMLCommentStyle ? @"-->" : "*/";        
-        internal virtual bool DoXMLCommentStyle { get; set; }
+        public virtual bool DoXMLCommentStyle { get; set; }
         internal virtual bool UseAdomdConnection { get; set; }        
 
 

@@ -14,6 +14,7 @@ namespace ALE.ETLToolbox
         public override void Execute()
         {
             new SqlTask(this, Sql).ExecuteNonQuery();
+            
         }
      
 

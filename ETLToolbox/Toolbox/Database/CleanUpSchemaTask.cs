@@ -55,7 +55,7 @@ namespace ALE.ETLToolbox {
 
 	-- drop all other objects in order   
 	select @SQL = 'SELECT
-      CASE WHEN SO.type=''PK'' THEN '' ALTER TABLE [''+SCHEMA_NAME(SO.schema_id)+''].[''+OBJECT_NAME(SO.parent_object_id)+''] DROP CONSTRAINT ''+ SO.name
+      CASE WHEN SO.type=''PK'' THEN '' ALTER TABLE [''+SCHEMA_NAME(SO.schema_id)+''].[''+OBJECT_NAME(SO.parent_object_id)+''] DROP CONSTRAINT [''+ SO.name + '']''
 		   WHEN SO.type=''U'' THEN '' DROP TABLE [''+SCHEMA_NAME(SO.schema_id)+''].[''+ SO.[Name] + '']''
            WHEN SO.type=''V'' THEN '' DROP VIEW  [''+SCHEMA_NAME(SO.schema_id)+''].[''+ SO.[Name] + '']''
            WHEN SO.type=''P'' THEN '' DROP PROCEDURE [''+SCHEMA_NAME(SO.schema_id)+''].[''+ SO.[Name] + '']''        		   

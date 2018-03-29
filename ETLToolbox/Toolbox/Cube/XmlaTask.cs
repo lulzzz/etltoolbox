@@ -57,6 +57,9 @@ namespace ALE.ETLToolbox {
         public static void ExecuteReader(string name, string sql, params Action<object>[] actions) => new XmlaTask(name, sql, actions).ExecuteReader();
         public static void ExecuteReader(string name, string sql, Action beforeRowReadAction, Action afterRowReadAction, params Action<object>[] actions) =>
             new XmlaTask(name, sql, beforeRowReadAction, afterRowReadAction, actions).ExecuteReader();
+        public static void ExecuteReader(string name, FileConnectionManager fileConnection, Action beforeRowReadAction, Action afterRowReadAction, params Action<object>[] actions) =>
+            new XmlaTask(name, fileConnection) { BeforeRowReadAction = beforeRowReadAction, AfterRowReadAction = afterRowReadAction, Actions = actions.ToList() }.ExecuteReader();
+        
         public static void BulkInsert(string name, IDataReader data, IColumnMappingCollection columnMapping, string tableName) =>
             new XmlaTask(name).BulkInsert(data, columnMapping, tableName);
     }

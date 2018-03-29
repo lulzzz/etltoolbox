@@ -17,14 +17,14 @@ namespace ALE.ETLToolboxTest {
 
         [TestMethod]
         public void TestProcess() {
-            ProcessCubeTask.Execute("Process cube test");
+            ProcessCubeTask.Process("Process cube test");
         }
 
         [TestMethod]
         public void TestLogging() {
             TestHelper.RecreateDatabase(TestContext);
             CreateLogTablesTask.CreateLog();
-            ProcessCubeTask.Execute("Process cube test");
+            ProcessCubeTask.Process("Process cube test");
             Assert.AreEqual(2, new SqlTask("Find log entry", "select count(*) from etl.Log where TaskType='PROCESSCUBE' group by TaskHash") { DisableLogging = true }.ExecuteScalar<int>());
         }
 

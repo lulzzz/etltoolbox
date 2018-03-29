@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace ALE.ETLToolbox {
     public class ConnectionString {
@@ -11,6 +12,7 @@ namespace ALE.ETLToolbox {
         static string AUTOTRANSLATE = $@"{PATTERNBEGIN}Auto Translate{PATTERNEND}";
 
         static string VALIDCONNECTIONSTRING = @"[\w\s]+=([\w\s-_.+*&%$#&!§]+|"".*? "")(;|$)"; //Attention: double quotes in Regex are quoted with double quotes
+               
 
         string _ConnectionString;
         public string Value {
@@ -19,8 +21,8 @@ namespace ALE.ETLToolbox {
             }
             set {
                 _ConnectionString = RemovePatternIfExists(value, PROVIDER, CURRENTLANGUAGE, AUTOTRANSLATE);
-                CatalogName = ReplaceIfMatch(value, INITIALCATALOG, "${3}", RegexOptions.IgnoreCase);
-                ServerName = ReplaceIfMatch(value, DATASOURCE, "${3}", RegexOptions.IgnoreCase);
+                CatalogName = ReplaceIfMatch(value, INITIALCATALOG, "${3}");
+                ServerName = ReplaceIfMatch(value, DATASOURCE, "${3}");
             }
         }
 
@@ -42,11 +44,17 @@ namespace ALE.ETLToolbox {
         }
 
         public ConnectionString GetMasterConnection() {
-            return new ConnectionString(ReplaceIfMatch(Value, INITIALCATALOG, "${1}${2}master${4}${5}", RegexOptions.IgnoreCase));
+            return new ConnectionString(ReplaceIfMatch(Value, INITIALCATALOG, "${1}${2}master${4}${5}"));
         }
 
         public ConnectionString GetConnectionWithoutCatalog() {
-            return new ConnectionString(ReplaceIfMatch(Value, INITIALCATALOG, "${1}${5}", RegexOptions.IgnoreCase));
+            return new ConnectionString(ReplaceIfMatch(Value, INITIALCATALOG, "${1}${5}"));
+        }
+
+        public ConnectionString ChangeCatalog(string dbName) {
+             return new ConnectionString(GetConnectionWithoutCatalog().Value 
+                 + (Value.EndsWith(";") ? "" : ";") 
+                 + $"Initial Catalog={dbName}");
         }
 
         public static implicit operator ConnectionString(string v) {
@@ -66,11 +74,11 @@ namespace ALE.ETLToolbox {
             return result;
         }
 
-        string ReplaceIfMatch(string input, string pattern, string replacement, RegexOptions options) {
-            if (Regex.IsMatch(input, pattern, options))
-                return Regex.Replace(input, pattern, replacement, options);
+        string ReplaceIfMatch(string input, string pattern, string replacement) {
+            if (Regex.IsMatch(input, pattern, RegexOptions.IgnoreCase))
+                return Regex.Replace(input, pattern, replacement, RegexOptions.IgnoreCase);
             else
-                return string.Empty;
+                return input;
         }
     }
 }
