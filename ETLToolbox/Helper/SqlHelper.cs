@@ -28,8 +28,8 @@ namespace ALE.ETLToolbox {
         public static string DropTablesIfExists(params string[] tableNames) {
             string sql = "";
             foreach (string name in tableNames) {
-                string tableName = name.StartsWith("#") ? "tempdb.." + name.Substring(1) : name;
-                sql += $@"if object_id('{tableName}') is not null drop table {tableName}" + Environment.NewLine;
+                string objectName = name.StartsWith("#") ? "tempdb.." + name: name;
+                sql += $@"if object_id('{objectName}') is not null drop table {name}" + Environment.NewLine;
             }
             return sql;
         }

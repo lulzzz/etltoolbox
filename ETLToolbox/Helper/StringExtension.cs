@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace ALE.ETLToolbox {
     public static class StringExtension {
-        public static string NullOrParenthesisString(this string s) => s == null ? "null" : $"'{s}'";
+        public static string NullOrParenthesisString(this string s) => s == null ? "null" : $"'{s.Replace("'","''")}'";
     }
 }
