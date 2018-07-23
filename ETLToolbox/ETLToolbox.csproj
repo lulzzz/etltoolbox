@@ -105,6 +105,7 @@
     <Compile Include="Toolbox\Database\CreateDatabaseTask.cs" />
     <Compile Include="Toolbox\Database\AddFileGroupTask.cs" />
     <Compile Include="Toolbox\Database\GetDatabaseListTask.cs" />
+    <Compile Include="Toolbox\DataFlow\NewDataFlowTask.cs" />
     <Compile Include="Toolbox\Logging\AbortLoadProcessTask.cs" />
     <Compile Include="Definitions\Tasks\DbTask.cs" />
     <Compile Include="Toolbox\Logging\GetLoadProcessAsJSONTask.cs" />
